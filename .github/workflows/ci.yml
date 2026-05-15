@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.png'
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.png'
+
+jobs:
+  unit-tests:
+    name: Unit tests (no LLM keys required)
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: fatwad
+          POSTGRES_PASSWORD: fatwad
+          POSTGRES_DB: fatwad
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U fatwad -d fatwad"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql+psycopg://fatwad:fatwad@localhost:5432/fatwad
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r requirements.txt
+      - run: python -m src.db.seed
+      - run: pytest -q

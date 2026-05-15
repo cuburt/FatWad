@@ -1,0 +1,42 @@
+{
+  "ran_at": 1778265543.0230012,
+  "duration_s": 0.0001,
+  "total": 4,
+  "passed": 4,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "compound_10k_at_7_for_10y",
+      "ok": true,
+      "result": {
+        "final": 20096.61,
+        "years": 10
+      }
+    },
+    {
+      "name": "compound_50k_plus_3k_mo_at_7_for_20y",
+      "ok": true,
+      "result": {
+        "final": 1764716.92,
+        "years": 20
+      }
+    },
+    {
+      "name": "required_monthly_to_1M_in_20y_at_7_from_50k",
+      "ok": true,
+      "result": {
+        "required_monthly": 1532.01
+      }
+    },
+    {
+      "name": "freedom_date_50k_5k_burn_3k_surplus_at_7",
+      "ok": true,
+      "result": {
+        "reached": true,
+        "years": 12.75,
+        "date": "2039-02-06",
+        "needed_nw": 857142.857142857
+      }
+    }
+  ]
+}
